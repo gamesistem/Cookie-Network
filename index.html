@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block c %}
+<nav class="tabs">
+{% for k,l in [('pending','Pendentes'),('approved','Aprovadas'),('rejected','Recusadas'),('all','Todas')] %}
+<a href="/?status={{k}}" class="{{ 'on' if status==k }}">{{l}}{% if k!='all' %} ({{ counts.get(k,0) }}){% endif %}</a>{% endfor %}</nav>
+{% for w in rows %}
+<a class="card row" href="/wl/{{w.id}}"><div><b>{{ w.char_name }}</b> · {{ w.mc_nick }}<br><small>{{ w.user_tag }} · {{ w.created_at }}</small></div>
+<span class="tag {{w.status}}">{{ {'pending':'Pendente','approved':'Aprovada','rejected':'Recusada'}[w.status] }}</span></a>
+{% else %}<p class="muted">Nada por aqui.</p>{% endfor %}{% endblock %}

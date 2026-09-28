@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% block c %}
+<a href="/">← Voltar</a>
+<div class="card"><h2>{{ w.char_name }} <span class="tag {{w.status}}">{{ w.status }}</span></h2>
+<dl>
+<dt>Discord</dt><dd>{{ w.user_tag }} ({{ w.user_id }})</dd>
+<dt>Idade real</dt><dd>{{ w.age }}</dd>
+<dt>Nick Minecraft</dt><dd>{{ w.mc_nick }}</dd>
+<dt>Nick Discord informado</dt><dd>{{ w.discord_nick }}</dd>
+<dt>Personagem</dt><dd>{{ w.char_name }}, {{ w.char_age }} anos</dd>
+<dt>Lore</dt><dd><a href="{{ w.lore_url }}" target="_blank" rel="noopener noreferrer">{{ w.lore_url }}</a></dd>
+<dt>Custom Player Model</dt><dd>{{ 'Sim' if w.has_model else 'Não' }}</dd></dl>
+<h3>Skin</h3><a href="/uploads/{{w.skin}}" target="_blank"><img src="/uploads/{{w.skin}}"></a>
+{% if w.has_model %}<h3>Tela de controle do model</h3><div class="grid">{% for f in control %}<a href="/uploads/{{f}}" target="_blank"><img src="/uploads/{{f}}"></a>{% endfor %}</div>
+<h3>Imagens do modelo</h3><div class="grid">{% for f in images %}<a href="/uploads/{{f}}" target="_blank"><img src="/uploads/{{f}}"></a>{% endfor %}</div>{% endif %}
+</div>
+{% if w.status=='pending' %}
+<form class="card" method="post" action="/wl/{{w.id}}/decide">
+<textarea name="reason" placeholder="Motivo (usado na recusa)"></textarea>
+<div class="btns"><button class="btn ok" name="action" value="approve">✅ Aprovar</button>
+<button class="btn no" name="action" value="reject">❌ Recusar</button></div></form>
+{% else %}<div class="card"><small>Analisada por {{ w.reviewer }} em {{ w.reviewed_at }}{% if w.reason %}<br>Motivo: {{ w.reason }}{% endif %}</small></div>{% endif %}
+{% endblock %}

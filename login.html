@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block c %}
+<div class="card center"><h1>🍪 Painel COOKIE NETWORK</h1>
+{% if error %}<p class="err">{{ error }}</p>{% endif %}
+{% if url %}<a class="btn" href="{{ url }}">Entrar com Discord</a>{% else %}<a class="btn" href="/login">Tentar novamente</a>{% endif %}
+</div>{% endblock %}

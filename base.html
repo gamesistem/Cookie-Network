@@ -1,0 +1,8 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Painel COOKIE NETWORK 🍪</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body>
+<header><a href="/" class="brand">🍪 Painel COOKIE NETWORK</a>
+{% if session.user %}<span>{{ session.user.name }} · <a href="/logout">Sair</a></span>{% endif %}</header>
+<main>{% for m in get_flashed_messages() %}<div class="flash">{{ m }}</div>{% endfor %}
+{% block c %}{% endblock %}</main></body></html>
